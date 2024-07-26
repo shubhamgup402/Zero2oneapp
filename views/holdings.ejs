@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Dashboard</title>
+    <link rel="stylesheet" href="holding_styles.css">
+
+</head>
+<body>
+    <div class="portfolio">
+        <div class="summary">
+            <div class="summary-item">
+                <p>Invested</p>
+                <h2 id="totalInvested">$ <%= totalInvested %></h2>
+            </div>
+            <div class="summary-item">
+                <p>Current</p>
+                <h2 id="totalCurrent">$ <%= totalCurrent %></h2>
+            </div>
+            <div class="summary-item">
+                <p>Total return</p>
+                <h2 id="totalReturn" class="<%= totalReturn >= 0 ? 'positive' : 'negative' %>"><%= totalReturn >= 0 ? '+' : '' %><%= totalReturn %> (<%= totalReturnPercentage %>%)</h2>
+            </div>
+        </div>
+        <% if (holdings.length > 0) { %>
+            <% holdings.forEach(holding => { %>
+        <div class="holding">
+            <h3><%= holding.stock_symbol %></h3>
+            <div class="details">
+                <p>Invested: <%= holding.invested %></p>
+                <p>Qty: <%= holding.quantity %></p>
+                <p class="average">Avg. Price: $<%= holding.average_price %></p>
+                <p class="current">Current Value: $<%= (holding.quantity * holding.current_price).toFixed(2) %></p>
+                <p class="<%= holding.current_return >= 0 ? 'positive' : 'negative' %>">Total Return: <%= holding.current_return >= 0 ? '+' : '' %><%= holding.current_return.toFixed(2) %> (<%= holding.current_return_percentage.toFixed(2) %>%)</p>
+            </div>
+        </div>
+        <% }) %>
+        <% } else { %>
+            <div>No holdings found</div>
+        <% } %>
+    </div>
+    
+    <script>
+        function updatePortfolio() {
+            fetch('/holdings/data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('totalInvested').innerText = `$ ${data.totalInvested}`;
+                    document.getElementById('totalCurrent').innerText = `$ ${data.totalCurrent}`;
+                    document.getElementById('totalReturn').innerText = `${data.totalReturn >= 0 ? '+' : ''}${data.totalReturn} (${data.totalReturnPercentage}%)`;
+                    document.getElementById('totalReturn').className = data.totalReturn >= 0 ? 'positive' : 'negative';
+
+                    const holdings = data.holdings;
+                    holdings.forEach((holding, index) => {
+                        document.querySelectorAll('.holding .current')[index].innerText = `Current Value: $${(holding.quantity * holding.current_price).toFixed(2)}`;
+                        document.querySelectorAll('.holding .positive, .holding .negative')[index].innerText = `Total Return: ${holding.current_return >= 0 ? '+' : ''}${holding.current_return.toFixed(2)} (${holding.current_return_percentage.toFixed(2)}%)`;
+                        document.querySelectorAll('.holding .positive, .holding .negative')[index].className = holding.current_return >= 0 ? 'positive' : 'negative';
+                    });
+                })
+                .catch(error => console.error('Error fetching portfolio data:', error));
+        }
+
+        setInterval(updatePortfolio, 1000);
+    </script>
+</body>
+</html>

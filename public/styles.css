@@ -1,0 +1,392 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    padding-top: 47px;
+    display: flex;
+    height: 100vh;
+    background-color: #1a1a1a;
+    color: #fff;
+    overflow: hidden;
+}
+
+.topbar {
+    position: fixed;
+    top: -20px;
+    width: 100%;
+    z-index: 1000;
+    background-color: #333;
+    height: 10%;
+}
+
+.main-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.watchlist {
+    width: 350px;
+    /* background-color: #2b2b2b; */    
+    background-color: #151924 ;
+    padding: 20px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    height: 100%;
+    border-right: 1px solid #444;
+}
+
+.watchlist-header h2, .watchlist h3 {
+    color: #fff;
+}
+
+.watchlist ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.watchlist li {
+    font-size: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    font-weight: 500;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.watchlist li:hover {
+    background-color: #3a3a3a;
+}
+
+.price {
+    margin-left: 10px;
+}
+
+.price-up {
+    color: #4caf50;
+}
+
+.price-down {
+    color: #e53935;
+}
+
+main {
+    width: 72%;
+    height: 92%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.tradingview-widget-container {
+    height: 675px;
+    width: 150%;
+    border: 1px solid #444;
+    overflow: hidden;
+}
+
+.menu-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sub-menu-bar {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+#portfolio {
+    padding: 15px;
+    margin-right: 5px;
+}
+
+#myportfolio-container {
+    padding: 15px;
+    border-radius: 5px;
+    width: 250px;
+    margin-top: -40px;
+}
+
+#myportfolio-container label {
+    color: #ccc;
+}
+
+#myportfolio-container select, 
+#myportfolio-container button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+
+#myportfolio-container input, #fund-amount,
+#myportfolio-container select {
+    background-color: #333;
+    color: #fff;
+    width: 100px;
+}
+
+#myportfolio-container button {
+    cursor: pointer;
+    color: #fff;
+}
+
+.buy-button {
+    background-color: #4caf50;
+}
+
+.buy-button:hover {
+    background-color: #45a049;
+}
+
+.sell-button {
+    background-color: #e53935;
+}
+
+.sell-button:hover {
+    background-color: #d32f2f;
+}
+
+.buttonbuysell {
+    display: flex;
+    gap: 10px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#quantity, #limit-price {
+    width: 60px;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+
+label {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+select {
+    width: 150px;
+    padding: 8px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    font-size: 16px;
+    color: #333;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="gray" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position-x: calc(100% - 10px);
+    background-position-y: center;
+}
+
+.holding-positions-container p {
+    font-size: 14px;
+}
+
+option {
+    background-color: #fff;
+    color: #333;
+    padding: 8px;
+}
+
+select:focus {
+    outline: none;
+}
+
+#fund-amount {
+    width: 22%;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+
+.quantity-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    margin-top: 10px;
+}
+
+.quantity-input {
+    width: 20px;
+    height: 17px;
+    text-align: center;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-right: none;
+    background-color: #333;
+    color: #fff;
+}
+
+.quantity-btn {
+    width: 40px;
+    height: 25px;
+    border: 1px solid #ccc;
+    background-color: #444;
+    color: #fff;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.quantity-btn:first-child {
+    border-right: none;
+}
+
+.quantity-btn:last-child {
+    border-left: none;
+}
+
+.holding-positions-container {
+    padding: 11px;
+}
+
+.summary-item {
+    margin-bottom: 5px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.positive {
+    color: rgb(45, 232, 45);
+}
+
+.negative {
+    color: red;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: unset; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+  }
+  
+  .modal-content {
+    background-color: black;
+    margin: auto;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    position: relative;
+    top: 15%;
+    transform: translateY(-50%);
+  }
+  
+  .close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close-button:hover,
+  .close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+
+#myadd-container h3, #myadd-container h4, #myadd-container label {
+    color: #ddd; /* Lighter text color for readability */
+    margin: 10px 0;
+    text-align: center;
+}
+
+#fund-amount {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 5px;
+    border: 1px solid #555; /* Border color for clarity */
+    background-color: #444; /* Darker background */
+    color: #ddd; /* Light text color */
+}
+
+.button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #4caf50; /* Consistent button color */
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+.optionselector {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.optionselector label,
+.optionselector select,
+.optionselector input {
+    margin: 0;
+}
+
+.optionselector > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.optionselector > div > label,
+.optionselector > div > input {
+    align-self: start;
+}

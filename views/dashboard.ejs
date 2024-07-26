@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/script.js" defer></script>
+  <script type="text/javascript"></script>
+</head>
+<body>
+  <div class="main-body" style="display: flex; flex-direction: column; width: 100%;">
+    <nav class="topbar">
+      <ul id="menu-bar" class="menu-bar">
+        <div class="header">
+          <h3>Coin Flow</h3>
+        </div>
+        <div id="sub-menu-bar" class="sub-menu-bar">
+          <div id="fundsLink" style="cursor: pointer;">Funds</div>
+          <div id="username">Welcome <span id="user-name"><%= username %></span></div>
+          <div id="holdingsLink" style="color: white; cursor: pointer;">Holding</div>
+          <div id="TransactionLink" style="color: white; cursor: pointer;">Transaction</div>
+          <div><a style="color: white;" href="/logout">Logout</a></div>
+          <div id="balance">Balance: $<%= balance %></div>
+        </div>
+      </ul>
+    </nav>
+    <div class="main-content">
+      <div class="watchlist">
+        <div style="text-align: center;">
+          My Watchlist
+        </div>
+        <div>
+          <ul id="cryptoList"></ul>
+        </div>
+      </div>
+      <main>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+        </div>
+      </main>
+      <div id="myportfolio" style="display: none;">
+        <div class="holding-positions-container">
+          <div class="summary-item">
+            <div id="close-option" style="cursor: pointer;">Close</div>
+            <p>All your assets worth</p>
+            <div class="dash-currentvalue" style="display: flex; align-items: baseline; height: 55px; margin-top: -25px;">
+              <p id="totalCurrent" style="font-size: 25px;">$ <%= totalCurrent %></p>
+              <p style="font-size: small; margin-left: 10px;">Till date</p>
+            </div>
+          </div>
+          <div class="summary-row">
+            <div class="summary-item">
+              <p>Invested amount</p>
+              <p id="totalInvested" style="font-size: 14px;">$ <%= totalInvested %></p>
+            </div>
+            <div class="summary-item">
+              <p>Total return</p>
+              <p id="totalReturn" class="<%= totalReturn >= 0 ? 'positive' : 'negative' %>" style="font-size: 14px;">
+                <%= totalReturn >= 0 ? '+' : '' %><%= totalReturn %> (<%= totalReturnPercentage %>%)
+              </p>
+            </div>
+          </div>
+        </div>
+
+       <div id="myportfolio-container">
+          <h4>Place Order </h4>
+          <form id="order-form" action="/order" method="POST">
+            <input type="hidden" id="stock_symbol" name="stock_symbol" value="">
+            <div id="symbol-name">Symbol: <span id="symbol-name-display"></span></div>
+            <label for="quantity">Quantity:</label>
+            <input type="number" class="quantity-input" name="quantity" id="quantity" value="0" min="1" required><br>
+            <div id="quantity-error" style="color: red; display: none;">This field cannot be empty</div><br>
+            <div id="required-amount">Required Amount: $0.00</div>
+            <br>
+            <div class="optionselector">
+              <div>
+                <label for="order-type-select">Order Type:</label>
+                <select name="order_type" id="order-type-select">
+                  <option value="market">Market</option>
+                  <option value="limit">Limit</option>
+                </select>
+              </div>
+              <div id="limit-price-container" style="display: none;">
+                <label for="limit-price">Limit Price:</label>
+                <input type="number" name="limit_price" id="limit-price" min="0" step="0.005">
+              </div>
+            </div>
+            <br>
+            <div id="buttonbuysell" class="buttonbuysell">
+              <button type="submit" id="Buybtn" class="buy-button" name="order_action" value="buy">Buy Order</button>
+              <button type="submit" id="Sellbtn" class="sell-button" name="order_action" value="sell">Sell Order</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Add this modal container for adding funds -->
+  <div id="add-funds-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <div id="myadd-container" style="padding: 10px;">
+        <h3>My Wallet</h3>
+        <div id="balance">Current Balance: $<%= balance %></div>
+        <form action="/add-funds" method="POST">
+          <label for="fund-amount">Amount:</label>
+          <input type="number" id="fund-amount" name="amount" min="0" required placeholder="Enter the amount">
+          <button class="button">
+            Add Funds
+          </button>              
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transaction and Order History</title>
+<style>
+body {
+  background-color: #181818;
+  color: white;
+  font-family: sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #282828;
+}
+
+tr:nth-child(even) {
+  background-color: #383838;
+}
+
+.pending {
+  background-color: #FFC107;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.executed {
+  background-color: #4CAF50;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.up-arrow {
+  font-size: 24px;
+  color: #4CAF50;
+}
+
+.down-arrow {
+  font-size: 24px;
+  color: #F44336;
+}
+
+.cancel-icon {
+  font-size: 16px;
+  color: #F44336;
+}
+</style>
+</head>
+<body>
+
+<h1>Open Orders</h1>
+<table>
+  <tr>
+    <th>Submission Date</th>
+    <th>Status</th>
+    <th>Action (Type)</th>
+    <th>Stock Name</th>
+    <th>Quantity</th>
+    <th>Order Price (USDC)</th>
+    <th>Order Value (USDC)</th>
+  </tr>
+  <% if (typeof pendingOrders !== 'undefined' && pendingOrders.length > 0) { %>
+    <% pendingOrders.sort((a, b) => new Date(b.order_date) - new Date(a.order_date)).forEach(order => { %>
+      <tr>
+        <td><%= order.created_at %></td>
+        <td><span class="pending">Pending</span></td>
+        <td><%= order.order_action %><br><%= order.type %></td>
+        <td><%= order.stock_symbol %></td>
+        <td><%= order.quantity %></td>
+        <td><%= order.limit_price %></td>
+        <td><%= order.limit_price * order.quantity %></td>
+      </tr>
+    <% }); %>
+  <% } else { %>
+    <tr>
+      <td colspan="7">No pending orders found.</td>
+    </tr>
+  <% } %>
+</table>
+
+<div style="margin-top: 30px;">
+  <h1 style="float: left;">Trade History</h1>
+  <span class="up-arrow" style="float: right;">&#x25B2;</span>
+</div>
+
+<table>
+  <tr>
+    <th>Settlement Date</th>
+    <th>Status</th>
+    <th>Action (Type)</th>
+    <th>Stock Name</th>
+    <th>Quantity</th>
+    <th>Avg. Price (USDC)</th>
+    <th>Order Value (USDC)</th>
+  </tr>
+  <% if (typeof transactions !== 'undefined' && transactions.length > 0) { %>
+    <% transactions.sort((a, b) => new Date(b.transaction_date) - new Date(a.transaction_date)).forEach(transaction => { %>
+      <tr>
+        <td><%= transaction.transaction_date %></td>
+        <td><span class="executed"><%= transaction.status %></span></td>
+        <td><%= transaction.order_action %><br><%= transaction.order_type %></td>
+        <td><%= transaction.stock_symbol %></td>
+        <td><%= transaction.quantity %></td>
+        <td><%= transaction.limit_price %></td>
+        <td><%= transaction.limit_price * transaction.quantity %></td>
+      </tr>
+
+      <% if (transaction.canceled) { %>
+        <tr>
+          <td colspan="7">
+            <div style="margin-left: 20px;">
+              <span>Order ID <%= transaction.order_id %></span><br>
+              <span>Date of cancellation <%= transaction.cancellation_date %></span><br>
+              <span>Limit Price <%= transaction.limit_price %></span><br>
+              <span>Fees (USDC) <%= transaction.fees %></span>
+            </div>
+          </td>
+        </tr>
+      <% } %>
+    <% }); %>
+  <% } else { %>
+    <tr>
+      <td colspan="7">No transactions found.</td>
+    </tr>
+  <% } %>
+</table>
+</body>
+</html>
